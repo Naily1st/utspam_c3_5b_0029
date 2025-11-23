@@ -63,25 +63,6 @@ class _ProfileTabState extends State<ProfileTab> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          color: Colors.black,
-          padding: const EdgeInsets.fromLTRB(24, 40, 24, 24),
-          child: Row(
-            children: [
-              Container(width: 3, height: 30, color: Colors.white),
-              const SizedBox(width: 12),
-              const Text(
-                'PROFILE',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 1,
-                ),
-              ),
-            ],
-          ),
-        ),
         Expanded(
           child: isLoading
               ? const Center(

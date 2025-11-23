@@ -30,65 +30,38 @@ class _HistoryTabState extends State<HistoryTab> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          color: Colors.black,
-          padding: const EdgeInsets.fromLTRB(24, 40, 24, 24),
-          child: Row(
-            children: [
-              Container(width: 3, height: 30, color: Colors.white),
-              const SizedBox(width: 12),
-              const Text(
-                'RENTAL HISTORY',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 1,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Expanded(
-          child: isLoading
-              ? const Center(
-                  child: CircularProgressIndicator(color: Colors.black),
-                )
-              : rentals.isEmpty
-              ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.history, size: 64, color: Colors.grey[300]),
-                      const SizedBox(height: 16),
-                      Text(
-                        'NO RENTAL HISTORY',
-                        style: TextStyle(
-                          color: Colors.grey[400],
-                          fontSize: 12,
-                          letterSpacing: 1,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              : RefreshIndicator(
-                  onRefresh: _loadRentals,
-                  color: Colors.black,
-                  child: ListView.builder(
-                    padding: const EdgeInsets.all(16),
-                    itemCount: rentals.length,
-                    itemBuilder: (context, index) {
-                      final rental = rentals[index];
-                      return _buildRentalCard(rental);
-                    },
+    return isLoading
+        ? const Center(child: CircularProgressIndicator(color: Colors.black))
+        : rentals.isEmpty
+        ? Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.history, size: 64, color: Colors.grey[300]),
+                const SizedBox(height: 16),
+                Text(
+                  'NO RENTAL HISTORY',
+                  style: TextStyle(
+                    color: Colors.grey[400],
+                    fontSize: 12,
+                    letterSpacing: 1,
                   ),
                 ),
-        ),
-      ],
-    );
+              ],
+            ),
+          )
+        : RefreshIndicator(
+            onRefresh: _loadRentals,
+            color: Colors.black,
+            child: ListView.builder(
+              padding: const EdgeInsets.all(16),
+              itemCount: rentals.length,
+              itemBuilder: (context, index) {
+                final rental = rentals[index];
+                return _buildRentalCard(rental);
+              },
+            ),
+          );
   }
 
   Widget _buildRentalCard(Rental rental) {
