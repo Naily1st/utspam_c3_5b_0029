@@ -24,7 +24,7 @@ class _ProfileTabState extends State<ProfileTab> {
   Future<void> _loadUserData() async {
     final prefs = await SharedPreferences.getInstance();
     final userId = prefs.getInt('userId');
-    
+
     if (userId != null) {
       final db = await DatabaseHelper.instance.database;
       final maps = await db.query(
@@ -32,7 +32,7 @@ class _ProfileTabState extends State<ProfileTab> {
         where: 'id = ?',
         whereArgs: [userId],
       );
-      
+
       if (maps.isNotEmpty) {
         setState(() {
           userData = User.fromMap(maps.first);
@@ -41,7 +41,7 @@ class _ProfileTabState extends State<ProfileTab> {
         return;
       }
     }
-    
+
     setState(() {
       isLoading = false;
     });
@@ -84,147 +84,182 @@ class _ProfileTabState extends State<ProfileTab> {
         ),
         Expanded(
           child: isLoading
-              ? const Center(child: CircularProgressIndicator(color: Colors.black))
+              ? const Center(
+                  child: CircularProgressIndicator(color: Colors.black),
+                )
               : userData == null
-                  ? const Center(child: Text('No user data'))
-                  : SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 32),
-                            child: Column(
-                              children: [
-                                Container(
-                                  width: 80,
-                                  height: 80,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.black, width: 2),
-                                  ),
-                                  child: const Icon(
-                                    Icons.person_outline,
-                                    size: 40,
-                                    color: Colors.black,
-                                  ),
+              ? const Center(child: Text('No user data'))
+              : SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 32),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 80,
+                              height: 80,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 2,
                                 ),
-                                const SizedBox(height: 16),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                                  child: Text(
-                                    userData!.fullName.toUpperCase(),
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w900,
-                                      letterSpacing: 1,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  '@${userData!.username}',
-                                  style: TextStyle(
-                                    color: Colors.grey[600],
-                                    fontSize: 13,
-                                    letterSpacing: 0.5,
-                                  ),
-                                ),
-                              ],
+                              ),
+                              child: const Icon(
+                                Icons.person_outline,
+                                size: 40,
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(24),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  'PERSONAL INFORMATION',
+                            const SizedBox(height: 16),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 24,
+                              ),
+                              child: Text(
+                                userData!.fullName.toUpperCase(),
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w900,
+                                  letterSpacing: 1,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              '@${userData!.username}',
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 13,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(24),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'PERSONAL INFORMATION',
+                              style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            _buildInfoRow(
+                              Icons.badge_outlined,
+                              'NIK',
+                              userData!.nik,
+                            ),
+                            _buildDivider(),
+                            _buildInfoRow(
+                              Icons.email_outlined,
+                              'Email',
+                              userData!.email,
+                            ),
+                            _buildDivider(),
+                            _buildInfoRow(
+                              Icons.phone_outlined,
+                              'Phone',
+                              userData!.phoneNumber,
+                            ),
+                            _buildDivider(),
+                            _buildInfoRow(
+                              Icons.location_on_outlined,
+                              'Address',
+                              userData!.address,
+                            ),
+                            const SizedBox(height: 32),
+                            SizedBox(
+                              width: double.infinity,
+                              height: 56,
+                              child: OutlinedButton.icon(
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      backgroundColor: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(0),
+                                        side: const BorderSide(
+                                          color: Colors.black,
+                                          width: 2,
+                                        ),
+                                      ),
+                                      title: const Text(
+                                        'LOGOUT',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w900,
+                                          letterSpacing: 1,
+                                        ),
+                                      ),
+                                      content: const Text(
+                                        'Are you sure you want to logout?',
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                          child: const Text(
+                                            'CANCEL',
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                        ),
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            _logout();
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.black,
+                                            foregroundColor: Colors.white,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(0),
+                                            ),
+                                          ),
+                                          child: const Text('LOGOUT'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                                icon: const Icon(Icons.logout, size: 20),
+                                label: const Text(
+                                  'LOGOUT',
                                   style: TextStyle(
-                                    fontSize: 11,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                     letterSpacing: 1,
                                   ),
                                 ),
-                                const SizedBox(height: 16),
-                                _buildInfoRow(Icons.badge_outlined, 'NIK', userData!.nik),
-                                _buildDivider(),
-                                _buildInfoRow(Icons.email_outlined, 'Email', userData!.email),
-                                _buildDivider(),
-                                _buildInfoRow(Icons.phone_outlined, 'Phone', userData!.phoneNumber),
-                                _buildDivider(),
-                                _buildInfoRow(Icons.location_on_outlined, 'Address', userData!.address),
-                                const SizedBox(height: 32),
-                                SizedBox(
-                                  width: double.infinity,
-                                  height: 56,
-                                  child: OutlinedButton.icon(
-                                    onPressed: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                          backgroundColor: Colors.white,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(0),
-                                            side: const BorderSide(color: Colors.black, width: 2),
-                                          ),
-                                          title: const Text(
-                                            'LOGOUT',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w900,
-                                              letterSpacing: 1,
-                                            ),
-                                          ),
-                                          content: const Text('Are you sure you want to logout?'),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () => Navigator.pop(context),
-                                              child: const Text(
-                                                'CANCEL',
-                                                style: TextStyle(color: Colors.grey),
-                                              ),
-                                            ),
-                                            ElevatedButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                                _logout();
-                                              },
-                                              style: ElevatedButton.styleFrom(
-                                                backgroundColor: Colors.black,
-                                                foregroundColor: Colors.white,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius.circular(0),
-                                                ),
-                                              ),
-                                              child: const Text('LOGOUT'),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                    icon: const Icon(Icons.logout, size: 20),
-                                    label: const Text(
-                                      'LOGOUT',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        letterSpacing: 1,
-                                      ),
-                                    ),
-                                    style: OutlinedButton.styleFrom(
-                                      foregroundColor: Colors.black,
-                                      side: const BorderSide(color: Colors.black, width: 2),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(0),
-                                      ),
-                                    ),
+                                style: OutlinedButton.styleFrom(
+                                  foregroundColor: Colors.black,
+                                  side: const BorderSide(
+                                    color: Colors.black,
+                                    width: 2,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(0),
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
+                    ],
+                  ),
+                ),
         ),
       ],
     );
