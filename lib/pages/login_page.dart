@@ -82,28 +82,19 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const SizedBox(height: 60),
-                  Row(
-                    children: [
-                      Container(width: 4, height: 40, color: Colors.black),
-                      const SizedBox(width: 12),
-                      const Text(
-                        'WELCOME\nBACK',
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.w900,
-                          height: 1.1,
-                          letterSpacing: 1,
-                        ),
-                      ),
-                    ],
+                  const Text(
+                    'WELCOME\nBACK',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w900,
+                      height: 1.1,
+                      letterSpacing: 1,
+                    ),
                   ),
                   const SizedBox(height: 8),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 16),
-                    child: Text(
-                      'Login to continue',
-                      style: TextStyle(fontSize: 14, color: Colors.grey),
-                    ),
+                  const Text(
+                    'Login to continue',
+                    style: TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                   const SizedBox(height: 60),
                   _buildTextField(

@@ -154,28 +154,19 @@ class _RegisterPageState extends State<RegisterPage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const SizedBox(height: 40),
-                  Row(
-                    children: [
-                      Container(width: 4, height: 40, color: Colors.black),
-                      const SizedBox(width: 12),
-                      const Text(
-                        'CREATE\nACCOUNT',
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.w900,
-                          height: 1.1,
-                          letterSpacing: 1,
-                        ),
-                      ),
-                    ],
+                  const Text(
+                    'CREATE\nACCOUNT',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w900,
+                      height: 1.1,
+                      letterSpacing: 1,
+                    ),
                   ),
                   const SizedBox(height: 8),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 16),
-                    child: Text(
-                      'Join us and start renting',
-                      style: TextStyle(fontSize: 14, color: Colors.grey),
-                    ),
+                  const Text(
+                    'Join us and start renting',
+                    style: TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                   const SizedBox(height: 40),
                   _buildTextField(
