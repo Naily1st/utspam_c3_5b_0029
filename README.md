@@ -10,3 +10,6 @@
   <img src="https://github.com/Naily1st/utspam_c3_5b_0029/blob/main/gambar%20screenshot/detail.jpg" width="200"/>
   <img src="https://github.com/Naily1st/utspam_c3_5b_0029/blob/main/gambar%20screenshot/edit.jpg" width="200"/>
 </p>
+
+# Berikut adalah video result nya :
+https://drive.google.com/file/d/11MROMceojYofDnjcpLQ_9zwCe0MbUazU/view?usp=drivesdk
