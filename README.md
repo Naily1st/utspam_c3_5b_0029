@@ -12,4 +12,4 @@
 </p>
 
 # Berikut adalah video result nya :
-https://drive.google.com/file/d/11MROMceojYofDnjcpLQ_9zwCe0MbUazU/view?usp=drivesdk
+https://drive.google.com/file/d/1xMRd57DhnSHMkuI489T83-Q5qoZuhQ2H/view
